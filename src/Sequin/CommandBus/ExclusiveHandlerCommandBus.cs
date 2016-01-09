@@ -4,7 +4,7 @@
     using Core;
     using Core.Infrastructure;
 
-    public class ExclusiveHandlerCommandBus
+    public class ExclusiveHandlerCommandBus : ICommandBus
     {
         private readonly IHandlerFactory handlerFactory;
 

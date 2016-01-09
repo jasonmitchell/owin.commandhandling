@@ -5,6 +5,7 @@
     using Owin;
     using Sequin;
     using Sequin.Autofac;
+    using Sequin.CommandBus;
 
     public class Startup
     {
@@ -13,7 +14,7 @@
             var container = ConfigureAutofac();
             app.UseSequin(new SequinOptions
             {
-                HandlerFactory = new AutofacHandlerFactory(container)
+                CommandBus = new ExclusiveHandlerCommandBus(new AutofacHandlerFactory(container))
             });
         }
 
