@@ -1,6 +1,7 @@
 ﻿namespace Sequin
 {
     using System;
+    using CommandBus;
     using Core.Infrastructure;
     using Infrastructure;
 
@@ -12,7 +13,7 @@
 
             CommandEndpointPath = "/commands";
             CommandRegistry = new ReflectionCommandRegistry(appDomainAssemblies);
-            HandlerFactory = new ReflectionHandlerFactory(appDomainAssemblies);
+            CommandBus = new ExclusiveHandlerCommandBus(new ReflectionHandlerFactory(appDomainAssemblies));
             CommandNameResolver = new RequestHeaderCommandNameResolver();
             CommandFactory = new JsonDeserializerCommandFactory();
         }
@@ -21,7 +22,7 @@
 
         public ICommandRegistry CommandRegistry { get; set; }
 
-        public IHandlerFactory HandlerFactory { get; set; }
+        public ICommandBus CommandBus { get; set; }
 
         public ICommandNameResolver CommandNameResolver { get; set; }
 
@@ -43,9 +44,9 @@
                 throw new SequinConfigurationException(nameof(CommandRegistry));
             }
 
-            if (HandlerFactory == null)
+            if (CommandBus == null)
             {
-                throw new SequinConfigurationException(nameof(HandlerFactory));
+                throw new SequinConfigurationException(nameof(CommandBus));
             }
 
             if (CommandNameResolver == null)
