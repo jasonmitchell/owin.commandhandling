@@ -1,7 +1,6 @@
 ﻿namespace Sequin.Owin
 {
     using Discovery;
-    using Infrastructure;
     using Sequin.Discovery;
 
     public class OwinSequinOptions : SequinOptions

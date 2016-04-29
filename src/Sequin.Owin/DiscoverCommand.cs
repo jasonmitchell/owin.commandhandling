@@ -51,7 +51,7 @@
 
         private object ConstructCommand(IOwinContext context)
         {
-            var commandType = GetCommandType(context);
+            var commandType = GetCommandType();
             var command = commandFactory.Create(commandType, context.Environment);
 
             if (command == null)
@@ -62,9 +62,9 @@
             return command;
         }
 
-        private Type GetCommandType(IOwinContext context)
+        private Type GetCommandType()
         {
-            var commandName = commandNameResolver.GetCommandName(context.Environment);
+            var commandName = commandNameResolver.GetCommandName();
             if (string.IsNullOrWhiteSpace(commandName))
             {
                 throw new UnidentifiableCommandException();
