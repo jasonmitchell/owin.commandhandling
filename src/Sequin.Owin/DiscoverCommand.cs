@@ -5,7 +5,7 @@
     using Extensions;
     using Microsoft.Owin;
     using Sequin.Discovery;
-    using Sequin.Infrastructure;
+    using Infrastructure;
 
     internal class DiscoverCommand : OwinMiddleware
     {
@@ -24,7 +24,7 @@
         {
             try
             {
-                var command = ConstructCommand(context);
+                var command = ConstructCommand();
                 if (command != null)
                 {
                     context.SetCommand(command);
@@ -49,10 +49,10 @@
             }
         }
 
-        private object ConstructCommand(IOwinContext context)
+        private object ConstructCommand()
         {
             var commandType = GetCommandType();
-            var command = commandFactory.Create(commandType, context.Environment);
+            var command = commandFactory.Create(commandType);
 
             if (command == null)
             {

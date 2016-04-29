@@ -1,7 +1,6 @@
 ﻿namespace Sequin.Discovery
 {
     using System;
-    using System.Collections.Generic;
     using Newtonsoft.Json;
 
     public class JsonDeserializerCommandFactory : ICommandFactory
@@ -17,7 +16,7 @@
             this.serializerSettings = serializerSettings;
         }
 
-        public object Create(Type commandType, IDictionary<string, object> environment)
+        public object Create(Type commandType)
         {
             var comandBody = commandBodyProvider.Get();
 
