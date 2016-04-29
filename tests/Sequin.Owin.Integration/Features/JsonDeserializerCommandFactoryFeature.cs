@@ -3,12 +3,13 @@
     using System;
     using System.Net.Http;
     using System.Threading.Tasks;
+    using Discovery;
     using Extensions;
     using FluentAssertions;
-    using Infrastructure;
     using Microsoft.Owin.Testing;
     using Newtonsoft.Json;
     using Owin;
+    using Sequin.Discovery;
     using Xbehave;
 
     public class JsonDeserializerCommandFactoryFeature
@@ -33,7 +34,7 @@
                     {
                         app.UseSequin(new OwinSequinOptions
                         {
-                            CommandFactory = new JsonDeserializerCommandFactory(serializerSettings),
+                            CommandFactory = new JsonDeserializerCommandFactory(new OwinEnvironmentBodyProvider(), serializerSettings),
                             PostProcessor = postProcessor
                         });
                     });

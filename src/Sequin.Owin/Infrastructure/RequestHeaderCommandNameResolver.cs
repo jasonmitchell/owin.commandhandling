@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.Owin;
+    using Sequin.Discovery;
     using Sequin.Infrastructure;
 
     public class RequestHeaderCommandNameResolver : ICommandNameResolver

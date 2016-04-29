@@ -1,6 +1,7 @@
 ﻿namespace Sequin
 {
     using System;
+    using Discovery;
     using Infrastructure;
     using Pipeline;
 

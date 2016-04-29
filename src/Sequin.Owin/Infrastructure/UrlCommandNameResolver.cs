@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Microsoft.Owin;
+    using Sequin.Discovery;
     using Sequin.Infrastructure;
 
     public class UrlCommandNameResolver : ICommandNameResolver

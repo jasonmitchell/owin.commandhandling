@@ -17,6 +17,9 @@
         public static void UseSequin(this IAppBuilder app, SequinOptions options)
         {
             options.Validate();
+
+            app.UseRequestScopeContext();
+
             RegisterSequinOptionsMiddleware(options, app);
 
             app.Use(typeof (HandleHttpOptions));
