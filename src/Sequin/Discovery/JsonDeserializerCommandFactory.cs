@@ -1,6 +1,7 @@
 ﻿namespace Sequin.Discovery
 {
     using System;
+    using Infrastructure;
     using Newtonsoft.Json;
 
     public class JsonDeserializerCommandFactory : CommandFactory
@@ -8,30 +9,30 @@
         private readonly ICommandBodyProvider commandBodyProvider;
         private readonly JsonSerializerSettings serializerSettings;
 
-        public JsonDeserializerCommandFactory(ICommandBodyProvider commandBodyProvider) : this(commandBodyProvider, new JsonSerializerSettings()) { }
+        public JsonDeserializerCommandFactory(ICommandRegistry commandRegistry, ICommandBodyProvider commandBodyProvider) : this(commandRegistry, commandBodyProvider, new JsonSerializerSettings()) { }
 
-        public JsonDeserializerCommandFactory(ICommandBodyProvider commandBodyProvider, JsonSerializerSettings serializerSettings)
+        public JsonDeserializerCommandFactory(ICommandRegistry commandRegistry, ICommandBodyProvider commandBodyProvider, JsonSerializerSettings serializerSettings) : base(commandRegistry)
         {
             this.commandBodyProvider = commandBodyProvider;
             this.serializerSettings = serializerSettings;
         }
 
-        public override object Create(Type commandType)
+        protected override object Create(Type commandType)
         {
-            var comandBody = commandBodyProvider.Get();
+            var commandBody = commandBodyProvider.Get();
 
             try
             {
-                var command = Convert.ChangeType(JsonConvert.DeserializeObject(comandBody, commandType, serializerSettings), commandType);
+                var command = Convert.ChangeType(JsonConvert.DeserializeObject(commandBody, commandType, serializerSettings), commandType);
                 return command;
             }
             catch (JsonSerializationException ex)
             {
-                throw new CommandConstructionException(ex.Message, commandType, comandBody, ex);
+                throw new CommandConstructionException(ex.Message, commandType, commandBody, ex);
             }
             catch (JsonReaderException ex)
             {
-                throw new CommandConstructionException("JSON command body could not be read; it may be malformed.", commandType, comandBody, ex);
+                throw new CommandConstructionException("JSON command body could not be read; it may be malformed.", commandType, commandBody, ex);
             }
         }
     }

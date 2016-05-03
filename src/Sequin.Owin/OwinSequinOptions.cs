@@ -8,7 +8,7 @@
         public OwinSequinOptions()
         {
             CommandNameResolver = new RequestHeaderCommandNameResolver();
-            CommandFactory = new JsonDeserializerCommandFactory(new OwinEnvironmentBodyProvider());
+            CommandFactory = new JsonDeserializerCommandFactory(CommandRegistry, new OwinEnvironmentBodyProvider());
         }
     }
 }

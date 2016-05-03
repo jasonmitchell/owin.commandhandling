@@ -32,11 +32,14 @@
 
                     server = TestServer.Create(app =>
                     {
-                        app.UseSequin(new OwinSequinOptions
+                        var options = new OwinSequinOptions
                         {
-                            CommandFactory = new JsonDeserializerCommandFactory(new OwinEnvironmentBodyProvider(), serializerSettings),
                             PostProcessor = postProcessor
-                        });
+                        };
+
+                        options.CommandFactory = new JsonDeserializerCommandFactory(options.CommandRegistry, new OwinEnvironmentBodyProvider(), serializerSettings);
+
+                        app.UseSequin(options);
                     });
                 });
 
