@@ -11,9 +11,9 @@
     {
         private readonly ICommandNameResolver commandNameResolver;
         private readonly ICommandRegistry commandRegistry;
-        private readonly ICommandFactory commandFactory;
+        private readonly CommandFactory commandFactory;
 
-        public DiscoverCommand(OwinMiddleware next, ICommandNameResolver commandNameResolver, ICommandRegistry commandRegistry, ICommandFactory commandFactory) : base(next)
+        public DiscoverCommand(OwinMiddleware next, ICommandNameResolver commandNameResolver, ICommandRegistry commandRegistry, CommandFactory commandFactory) : base(next)
         {
             this.commandNameResolver = commandNameResolver;
             this.commandRegistry = commandRegistry;

@@ -24,7 +24,7 @@
 
         public ICommandNameResolver CommandNameResolver { get; set; }
 
-        public ICommandFactory CommandFactory { get; set; }
+        public CommandFactory CommandFactory { get; set; }
 
         public CommandPipelineStage[] CommandPipeline { get; set; }
 

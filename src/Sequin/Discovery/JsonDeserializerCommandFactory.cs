@@ -3,7 +3,7 @@
     using System;
     using Newtonsoft.Json;
 
-    public class JsonDeserializerCommandFactory : ICommandFactory
+    public class JsonDeserializerCommandFactory : CommandFactory
     {
         private readonly ICommandBodyProvider commandBodyProvider;
         private readonly JsonSerializerSettings serializerSettings;
@@ -16,7 +16,7 @@
             this.serializerSettings = serializerSettings;
         }
 
-        public object Create(Type commandType)
+        public override object Create(Type commandType)
         {
             var comandBody = commandBodyProvider.Get();
 
